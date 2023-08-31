@@ -1,0 +1,15 @@
+FROM python:3.8
+
+WORKDIR /app
+
+# Installeer de benodigde pakketten
+COPY requirements_inference.txt .
+RUN pip install --no-cache-dir -r requirements_inference.txt
+
+# Kopieer de Flask-app en het model
+COPY app.py .
+COPY mnist_model.h5 .
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
